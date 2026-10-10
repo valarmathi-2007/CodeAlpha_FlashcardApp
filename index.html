@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashcard App - CodeAlpha</title>
+<style>
+body{font-family:Arial;background:#f0f2f5;display:flex;justify-content:center;padding:20px}
+.box{background:white;padding:25px;border-radius:15px;width:100%;max-width:400px;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,0.1)}
+h1{margin-bottom:5px}.sub{color:#666;font-size:13px;margin-bottom:15px}
+input{width:90%;padding:10px;margin:5px;border:1px solid #ccc;border-radius:8px}
+button{padding:10px 15px;background:#4CAF50;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin:5px}
+.flashcard{height:160px;margin:20px 0;cursor:pointer}
+.inner{position:relative;width:100%;height:100%;transition:0.6s;transform-style:preserve-3d}
+.flip.inner{transform:rotateY(180deg)}
+.front,.back{position:absolute;width:100%;height:100%;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;border-radius:12px;padding:15px;font-size:18px;font-weight:bold}
+.front{background:#2196F3;color:white}.back{background:#FF9800;color:white;transform:rotateY(180deg)}
+</style>
+</head>
+<body>
+<div class="box">
+<h1>📚 Flashcard Quiz</h1>
+<p class="sub">CodeAlpha Task 1 by Valarmathi</p>
+<input type="text" id="q" placeholder="Enter Question">
+<input type="text" id="a" placeholder="Enter Answer">
+<button onclick="add()">Add Card</button>
+<div class="flashcard" id="card" onclick="this.classList.toggle('flip')"><div class="inner"><div class="front" id="front">Click Add to start!</div><div class="back" id="back"></div></div></div>
+<div><button style="background:#333" onclick="prev()">Prev</button><span id="count">0/0</span><button style="background:#333" onclick="next()">Next</button></div>
+</div>
+<script>
+let cards=[{q:"What is HTML?",a:"HyperText Markup Language"},{q:"What is CSS?",a:"Cascading Style Sheets"}];let cur=0;
+function show(){if(cards.length==0)return;document.getElementById('front').innerText=cards[cur].q;document.getElementById('back').innerText=cards[cur].a;document.getElementById('count').innerText=(cur+1)+"/"+cards.length;document.getElementById('card').classList.remove('flip')}
+function next(){cur=(cur+1)%cards.length;show()}function prev(){cur=(cur-1+cards.length)%cards.length;show()}
+function add(){let qv=document.getElementById('q').value.trim();let av=document.getElementById('a').value.trim();if(!qv||!av){alert("Question & Answer podunga");return}cards.push({q:qv,a:av});document.getElementById('q').value="";document.getElementById('a').value="";cur=cards.length-1;show()}show();
+</script>
+</body>
+</html>  
